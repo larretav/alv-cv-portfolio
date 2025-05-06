@@ -2,7 +2,7 @@ import React from 'react'
 import { SvgIcon } from './SvgIcon'
 import type { IconSvgProps } from "@/types";
 
-export const SunFilledIcon = (props: IconSvgProps) => {
+export const SunSolidIcon = (props: IconSvgProps) => {
   return (
     <SvgIcon {...props}>
       <path

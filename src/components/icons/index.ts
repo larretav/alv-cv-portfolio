@@ -1,4 +1,7 @@
+export { EnvelopeOutlinedIcon } from "./EnvelopeOutlinedIcon";
+export { MapPinOutlinedIcon } from "./MapPinOutlinedIcon";
+export { PhoneOutlinedIcon } from "./PhoneOutlinedIcon";
 export { SvgIcon } from "./SvgIcon";
-export { MoonFilledIcon } from "./MoonFilledIcon";
-export { SunFilledIcon } from "./SunFilledIcon";
+export { MoonSolidIcon } from "./MoonSolidIcon";
+export { SunSolidIcon } from "./SunSolidIcon";
 

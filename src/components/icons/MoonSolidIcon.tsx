@@ -2,7 +2,7 @@ import React from 'react'
 import { SvgIcon } from './SvgIcon'
 import type { IconSvgProps } from "@/types";
 
-export const MoonFilledIcon = (props: IconSvgProps) => {
+export const MoonSolidIcon = (props: IconSvgProps) => {
   return (
     <SvgIcon {...props}>
       <path
