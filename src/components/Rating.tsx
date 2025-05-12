@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import clsx from 'clsx';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 type RatingProps = {
   value: number;
@@ -53,30 +54,59 @@ export const Rating = ({
 
         const IconComponent = filled ? Icon : partiallyFilled ? Icon : EmptyIcon;
 
-        return (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => handleClick(stepVal + precision)}
-            onMouseEnter={() => setHoverValue(stepVal + precision)}
-            onMouseLeave={() => setHoverValue(null)}
-            disabled={readOnly}
-            className={clsx(
-              'text-yellow-500 transition-transform hover:scale-110 focus:outline-none',
-              sizeClasses[size],
-              readOnly && 'cursor-default'
-            )}
-            aria-label={`${stepVal + precision} rating`}
-          >
-            <IconComponent
-              className={clsx(
-                sizeClasses[size],
-                partiallyFilled && 'opacity-50'
-              )}
-            />
-          </button>
-        );
+        // return (
+        //   <button
+        //     key={idx}
+        //     type="button"
+        //     onClick={() => handleClick(stepVal + precision)}
+        //     onMouseEnter={() => setHoverValue(stepVal + precision)}
+        //     onMouseLeave={() => setHoverValue(null)}
+        //     disabled={readOnly}
+        //     className={clsx(
+        //       'relative text-yellow-500 transition-transform hover:scale-110 focus:outline-none',
+        //       sizeClasses[size],
+        //       readOnly && 'cursor-default'
+        //     )}
+        //     aria-label={`${stepVal + precision} rating`}
+        //   >
+        //     <IconComponent
+        //       className={clsx(
+        //         sizeClasses[size],
+        //         partiallyFilled && 'opacity-50'
+        //       )}
+        //     />
+        //   </button>
+        // );
+        return <span className="relative">
+          <label htmlFor="partial-rating" className="cursor-auto" style={{
+            width: "50%", overflow: "hidden", position: "absolute",
+          }}>
+            <span className="flex pointer-events-none">
+              <IconComponent />
+            </span>
+            <VisuallyHidden >
+              <span className="MuiRating-visuallyHidden">3.5 Stars</span>
+            </VisuallyHidden>
+          </label>
+
+          <VisuallyHidden >
+            <input className="MuiRating-visuallyHidden" id="partial-rating" type="radio" value="3.5" name="half-rating" />
+          </VisuallyHidden>
+
+          <label htmlFor="rating-background" className="cursor-auto">
+            <span className="flex pointer-events-none">
+              <IconComponent />
+            </span>
+            <VisuallyHidden >
+              <span >4 Stars</span>
+            </VisuallyHidden>
+          </label>
+          <VisuallyHidden >
+            <input id="rating-background" type="radio" value="4" name="half-rating" />
+          </VisuallyHidden>
+        </span>
       })}
     </div>
   );
 }
+
