@@ -35,10 +35,10 @@ export const Rating = ({
 }: RatingProps) => {
   const [hoverValue, setHoverValue] = useState<number | null>(null);
 
-  const steps = useMemo(() => {
-    const count = max / precision;
-    return Array.from({ length: count }, (_, i) => +(i * precision).toFixed(2));
-  }, [max, precision]);
+  // const steps = useMemo(() => {
+  //   const count = max / precision;
+  //   return Array.from({ length: count }, (_, i) => +(i * precision).toFixed(2));
+  // }, [max, precision]);
 
   const displayValue = hoverValue ?? value;
 
@@ -46,13 +46,15 @@ export const Rating = ({
     if (!readOnly && onChange) onChange(val);
   };
 
+  console.log(hoverValue)
+
   return (
-    <div className={clsx('flex items-center gap-0.5', className)} role="radiogroup" aria-label="Rating">
-      {steps.map((stepVal, idx) => {
+    <div className={clsx('inline-flex items-center relative text-2xl text-yellow-500 text-left w-fit ', className)} role="radiogroup" aria-label="Rating">
+      {Array.from({length: max}, (_, i) => +(i * 1).toFixed(2)).map((stepVal, idx) => {
         const filled = displayValue >= stepVal + precision;
         const partiallyFilled = !filled && displayValue >= stepVal;
 
-        const IconComponent = filled ? Icon : partiallyFilled ? Icon : EmptyIcon;
+        // const IconComponent = filled ? Icon : partiallyFilled ? Icon : EmptyIcon;
 
         // return (
         //   <button
@@ -77,30 +79,45 @@ export const Rating = ({
         //     />
         //   </button>
         // );
-        return <span className="relative">
-          <label htmlFor="partial-rating" className="cursor-auto" style={{
-            width: "50%", overflow: "hidden", position: "absolute",
+        return <span
+          key={idx}
+          onClick={() => handleClick(stepVal + precision)}
+          onMouseEnter={() => setHoverValue(stepVal + precision)}
+          onMouseLeave={() => setHoverValue(null)}
+          // disabled={readOnly}
+          className={clsx(
+            'relative text-yellow-500 transition-transform hover:scale-110 focus:outline-none cursor-pointer',
+            sizeClasses[size],
+            readOnly && 'cursor-default'
+          )}
+          aria-label={`${stepVal + precision} rating`}
+        >
+          <label htmlFor={`partial-rating-${idx}`} className="cursor-auto" style={{
+            width: `${idx === max ? `${precision * 100}%` : '100%'}%`, overflow: "hidden", position: "absolute",
           }}>
-            <span className="flex pointer-events-none">
-              <IconComponent />
+            <span className="flex pointer-events-none scale-105 ">
+              <Icon
+                className={clsx("select-none inline-block shrink-0", sizeClasses[size])}
+              />
             </span>
             <VisuallyHidden >
-              <span className="MuiRating-visuallyHidden">3.5 Stars</span>
+              <span >3.5 Stars</span>
             </VisuallyHidden>
           </label>
 
           <VisuallyHidden >
-            <input className="MuiRating-visuallyHidden" id="partial-rating" type="radio" value="3.5" name="half-rating" />
+            <input id={`partial-rating-${idx}`} type="radio" value="3.5" name="half-rating" />
           </VisuallyHidden>
 
           <label htmlFor="rating-background" className="cursor-auto">
-            <span className="flex pointer-events-none">
-              <IconComponent />
+            <span className="flex pointer-events-none w-fit">
+              <EmptyIcon className={clsx("select-none inline-block shrink-0", sizeClasses[size])} />
             </span>
             <VisuallyHidden >
               <span >4 Stars</span>
             </VisuallyHidden>
           </label>
+
           <VisuallyHidden >
             <input id="rating-background" type="radio" value="4" name="half-rating" />
           </VisuallyHidden>
