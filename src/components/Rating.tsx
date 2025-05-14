@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useRef, MouseEvent } from 'react';
 import clsx from 'clsx';
-import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 type RatingProps = {
   value: number;
@@ -34,96 +33,86 @@ export const Rating = ({
   className,
 }: RatingProps) => {
   const [hoverValue, setHoverValue] = useState<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  // const steps = useMemo(() => {
-  //   const count = max / precision;
-  //   return Array.from({ length: count }, (_, i) => +(i * precision).toFixed(2));
-  // }, [max, precision]);
+  const roundValueToPrecision = (val: number) => {
+    const nearest = Math.round(val / precision) * precision;
+    return Number(nearest.toFixed(2));
+  };
+
+  const getValueFromPosition = (e: MouseEvent<HTMLDivElement>) => {
+    const { left, width } = rootRef.current?.getBoundingClientRect() || { left: 0, width: 1 };
+    const percent = (e.clientX - left) / width;
+    const rawValue = percent * max;
+    return roundValueToPrecision(rawValue);
+  };
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (readOnly) return;
+    const newHover = getValueFromPosition(e);
+    setHoverValue(newHover);
+  };
+
+  const handleMouseLeave = () => {
+    if (readOnly) return;
+    setHoverValue(null);
+  };
+
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (readOnly || !onChange) return;
+    const clickedValue = getValueFromPosition(e);
+    onChange(clickedValue);
+  };
 
   const displayValue = hoverValue ?? value;
 
-  const handleClick = (val: number) => {
-    if (!readOnly && onChange) onChange(val);
-  };
-
-  console.log(hoverValue)
-
   return (
-    <div className={clsx('inline-flex items-center relative text-2xl text-yellow-500 text-left w-fit ', className)} role="radiogroup" aria-label="Rating">
-      {Array.from({length: max}, (_, i) => +(i * 1).toFixed(2)).map((stepVal, idx) => {
-        const filled = displayValue >= stepVal + precision;
-        const partiallyFilled = !filled && displayValue >= stepVal;
+    <div
+      ref={rootRef}
+      className={clsx('relative flex items-center  select-none w-fit ', className)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      role="slider"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-readonly={readOnly}
+    >
+      {Array.from({ length: max }).map((_, i) => {
+        const itemValue = i + 1;
+        const fillLevel = Math.min(Math.max(displayValue - i, 0), 1);
 
-        // const IconComponent = filled ? Icon : partiallyFilled ? Icon : EmptyIcon;
-
-        // return (
-        //   <button
-        //     key={idx}
-        //     type="button"
-        //     onClick={() => handleClick(stepVal + precision)}
-        //     onMouseEnter={() => setHoverValue(stepVal + precision)}
-        //     onMouseLeave={() => setHoverValue(null)}
-        //     disabled={readOnly}
-        //     className={clsx(
-        //       'relative text-yellow-500 transition-transform hover:scale-110 focus:outline-none',
-        //       sizeClasses[size],
-        //       readOnly && 'cursor-default'
-        //     )}
-        //     aria-label={`${stepVal + precision} rating`}
-        //   >
-        //     <IconComponent
-        //       className={clsx(
-        //         sizeClasses[size],
-        //         partiallyFilled && 'opacity-50'
-        //       )}
-        //     />
-        //   </button>
-        // );
-        return <span
-          key={idx}
-          onClick={() => handleClick(stepVal + precision)}
-          onMouseEnter={() => setHoverValue(stepVal + precision)}
-          onMouseLeave={() => setHoverValue(null)}
-          // disabled={readOnly}
-          className={clsx(
-            'relative text-yellow-500 transition-transform hover:scale-110 focus:outline-none cursor-pointer',
-            sizeClasses[size],
-            readOnly && 'cursor-default'
-          )}
-          aria-label={`${stepVal + precision} rating`}
-        >
-          <label htmlFor={`partial-rating-${idx}`} className="cursor-auto" style={{
-            width: `${idx === max ? `${precision * 100}%` : '100%'}%`, overflow: "hidden", position: "absolute",
-          }}>
-            <span className="flex pointer-events-none scale-105 ">
+        return (
+          <div key={i} className={clsx('relative', {
+            "*:transition-transform *:hover:scale-110": !readOnly
+          })} >
+            <EmptyIcon
+              className={clsx(
+                sizeClasses[size],
+                'text-gray-300 absolute top-0 left-0  ',{
+                  "cursor-pointer": !readOnly
+                }
+              )}
+              aria-hidden="true"
+            />
+            <div
+              className="overflow-hidden"
+              style={{ width: `${fillLevel * 100}%` }}
+            >
               <Icon
-                className={clsx("select-none inline-block shrink-0", sizeClasses[size])}
+                className={clsx(
+                  sizeClasses[size],
+                  'text-yellow-500 relative z-10  ',{
+                    "cursor-pointer": !readOnly
+                  }
+                )}
+                aria-hidden="true"
               />
-            </span>
-            <VisuallyHidden >
-              <span >3.5 Stars</span>
-            </VisuallyHidden>
-          </label>
-
-          <VisuallyHidden >
-            <input id={`partial-rating-${idx}`} type="radio" value="3.5" name="half-rating" />
-          </VisuallyHidden>
-
-          <label htmlFor="rating-background" className="cursor-auto">
-            <span className="flex pointer-events-none w-fit">
-              <EmptyIcon className={clsx("select-none inline-block shrink-0", sizeClasses[size])} />
-            </span>
-            <VisuallyHidden >
-              <span >4 Stars</span>
-            </VisuallyHidden>
-          </label>
-
-          <VisuallyHidden >
-            <input id="rating-background" type="radio" value="4" name="half-rating" />
-          </VisuallyHidden>
-        </span>
+            </div>
+          </div>
+        );
       })}
     </div>
   );
 }
-

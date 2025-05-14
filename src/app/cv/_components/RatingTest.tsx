@@ -3,8 +3,8 @@
 import { Rating } from '@/components';
 import { useState } from 'react';
 
-import { HeartIcon as HeartFilled } from '@heroicons/react/24/solid';
-import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { StarIcon as StarFilled } from '@heroicons/react/24/solid';
+import { StarIcon as StarOutline } from '@heroicons/react/24/outline';
 
 export const RatingTest = () => {
   const [value, setValue] = useState(2.5);
@@ -16,9 +16,10 @@ export const RatingTest = () => {
         value={value}
         onChange={setValue}
         precision={0.5}
-        icon={HeartFilled}
-        emptyIcon={HeartOutline}
+        icon={StarFilled}
+        emptyIcon={StarOutline}
         size="lg"
+        
       />
     </div>
   );
