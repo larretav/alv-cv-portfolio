@@ -1,5 +1,6 @@
 export * from './Navbar';
 export * from './Rating';
+export * from './SectionTitle';
 export * from './ThemeSwitch';
 export * from './icons/EnvelopeOutlinedIcon';
 export * from './icons/MapPinOutlinedIcon';

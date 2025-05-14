@@ -15,7 +15,7 @@ export const RatingTest = () => {
       <Rating
         value={value}
         onChange={setValue}
-        precision={0.5}
+        precision={1}
         icon={StarFilled}
         emptyIcon={StarOutline}
         size="lg"
