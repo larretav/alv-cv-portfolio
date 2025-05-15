@@ -1,6 +1,8 @@
 import { EnvelopeOutlinedIcon, MapPinOutlinedIcon, PhoneOutlinedIcon } from "@/components/icons";
 import { Avatar } from "@heroui/avatar";
 import { RatingTest } from "./_components/RatingTest";
+import { SectionTitle2 } from "@/components";
+import { BriefcaseIcon } from "@heroicons/react/24/outline";
 
 export default function CVPage() {
   return (
@@ -16,8 +18,7 @@ export default function CVPage() {
         Información de empleo
 
         <div>
-          Rating
-          <RatingTest />
+          <SectionTitle2 text="Experiencia Laboral" icon={BriefcaseIcon} />
         </div>
       </div>
     </div>

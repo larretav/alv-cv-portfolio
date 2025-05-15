@@ -7,3 +7,4 @@ export * from './icons/MoonSolidIcon';
 export * from './icons/PhoneOutlinedIcon';
 export * from './icons/SunSolidIcon';
 export * from './icons/SvgIcon';
+export * from './typography/SectionTitle2';
