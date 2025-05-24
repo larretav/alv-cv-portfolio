@@ -1,3 +1,4 @@
+export * from './ExperienceItem';
 export * from './Navbar';
 export * from './Rating';
 export * from './ThemeSwitch';
