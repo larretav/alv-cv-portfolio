@@ -1,79 +1,165 @@
+'use client';
+import { getPlaceAndDate } from "./_helpers/dates.helper";
+import { Divider } from "@heroui/divider";
+import { CustomInput } from "./_components/CustomInput";
+import { fontMerriweather } from "@/config/fonts";
+import { cn } from "@/utils";
+import Image from "next/image";
+import { ColaboratorSignature } from "./_components/ColaboratorSignature";
+import { ManagerSignature } from "./_components/ManagerSignature";
+import { useRef } from "react";
+import { Button } from "@heroui/button";
+import html2pdf from 'html2pdf.js';
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+
 export default function VacationsFormatPage() {
+
+  const pdfRef = useRef(null);
+
+  const placeDate = getPlaceAndDate();
+
+  const formData = {
+    location: placeDate,
+    date: "24 de mayo del 2025",
+    name: "Alejandro Larreta Valenzuela",
+    employeeId: "150",
+    position: "Desarrollador Web",
+    hireDate: "16 de enero del 2023",
+    salary: "",
+    period: "Segundo",
+    days: "3",
+    startDate: "02-06-2025",
+    endDate: "04-06-2025",
+    effectiveDate: "02-06-2025",
+    returnDate: "05-06-2025",
+    comments: "",
+  }
+
+  const downloadPDF = () => {
+    const element = pdfRef.current;
+
+    const opt = {
+      margin: 0,
+      filename: 'solicitud-vacaciones.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 1 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  };
+
   return (
-       <div className="relative">
-      {/* Línea vertical azul y verde */}
-      <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-blue-900 via-blue-900 to-green-500 z-10" />
+    <div className="flex flex-col ">
 
-      <div className="relative max-w-4xl mx-auto p-6 pl-6">
-        <h1 className="text-2xl font-bold text-center mb-6">SOLICITUD DE VACACIONES</h1>
+      <div className="absolute bottom-20 right-8">
+        <Button color="primary" startContent={<ArrowDownTrayIcon className="size-6" />} onPress={downloadPDF}>Descargar</Button>
+      </div>
 
-        <div className="text-sm mb-6 space-y-1">
-          <p>Lugar y fecha: <span className="underline">Los Mochis, Sinaloa, 24 de mayo del 2025</span></p>
-          <p>Nombre: <CustomInput defaultValue="Alejandro Lareta Valenzuela" /></p>
-          <p>ID del colaborador: <CustomInput defaultValue="150" /></p>
-          <p>Puesto Actual: <CustomInput defaultValue="Desarrollador Web" /></p>
-          <p>Fecha de ingreso: <CustomInput defaultValue="16 de enero del 2023" /></p>
-          <p>Salario Diario (llenado por RH): <span className="underline">_________________________</span></p>
-        </div>
+      <div ref={pdfRef} className={cn("relative max-w-4xl mx-auto bg-content1 dark:bg-content2 shadow-md py-6 text-xs", fontMerriweather.className)}>
+        {/* Left sidebar with green and blue */}
 
-        <div className="text-sm mb-6 space-y-1">
-          <p>Periodo a disfrutar: <CustomInput defaultValue="Segundo" /></p>
-          <p>No. de días a disfrutar: <CustomInput defaultValue="3" /> fecha de inicio: <CustomInput defaultValue="02-06-2025" /> fecha de término: <CustomInput defaultValue="04-06-2025" /></p>
-          <p>Efectivo a partir de la fecha: <CustomInput defaultValue="02-06-2025" /></p>
-          <p><strong>IMPORTANTE:</strong> fecha en la que deberá presentarse: <CustomInput defaultValue="05-06-2025" /></p>
-        </div>
+        <Image src="/assets/pkt1-logo.png" width={160} height={70} alt="logo" className="absolute top-10 right-10" />
 
-        <div className="mb-6">
-          <label className="block text-sm font-medium">OBSERVACIONES Y COMENTARIOS:</label>
-          <span className="mt-1 block w-full border-b border-black py-2" />
-          <span className="mt-1 block w-full border-b border-black py-2" />
-        </div>
+        {/* Main form content */}
+        <div className="flex gap-0 h-full">
+          <div className="w-36 py-8">
+            <div className="h-1/6 bg-green-500"></div>
+            <div className="h-5/6 bg-blue-900"></div>
+          </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-10 text-center">
-          {["Colaborador", "Gerente / Jefe Inmediato", "Dirección"].map((label) => (
-            <div className="flex-1" key={label}>
-              <label className="text-sm font-medium">{`Firma de ${label}`}</label>
-              <div className="border h-16 mt-2" />
+          <div className="flex flex-col gap-2 p-16 relative">
+
+
+            <div className="mb-6">
+              <h1 className="text-lg font-bold text-center font-sans">SOLICITUD DE VACACIONES</h1>
             </div>
-          ))}
-        </div>
 
-        <h2 className="font-semibold mb-2 italic">Exclusivo para ser llenado por Recursos Humanos</h2>
+            {/* Campos */}
+            <div className="flex flex-col gap-3 ">
 
-        <div className="text-sm mb-4 space-y-1">
-          <p>Colaborador: __________________________________</p>
-          <p>Puesto: ________________________________________</p>
-        </div>
+              <CustomInput label="Lugar y fecha:" defaultValue={formData.location} />
 
-        <div className="border rounded-lg p-4 text-sm bg-white shadow-sm">
-          <p className="mb-2">
-            A través del presente se le informa que se autoriza el goce de sus vacaciones correspondiente al periodo _________ por ______ días, iniciando el __________ y terminando el ___________, debiendo presentarse a sus labores el ____________, quedando pendientes de disfrutar ______ días correspondientes al periodo en mención, mismos que posteriormente dará aviso mediante el formato correspondiente.
-          </p>
-          <p>
-            No habiendo ningún inconveniente de su parte, hago de su conocimiento que el registro y pago del porcentaje de prima vacacional correspondiente al periodo __________ será aplicado en la nómina que corresponda de acuerdo a su fecha de aniversario cumplido.
-          </p>
+              <CustomInput label="Nombre:" defaultValue={formData.name} />
+              <CustomInput label="ID del colaborador:" defaultValue={formData.employeeId} />
+              <CustomInput label="Puesto Actual:" defaultValue={formData.position} />
+              <CustomInput label="Fecha de ingreso:" defaultValue={formData.hireDate} />
+              <CustomInput label="Salarios Diario (llenado por RH):" defaultValue={formData.salary} />
+              <CustomInput label="Periodo a disfrutar:" defaultValue={formData.period} />
 
-          <div className="text-right mt-6">
-            <p>Atentamente</p>
-            <p className="mt-10 border-t w-64 mx-auto">Gerente de Recursos Humanos Integradora de Franquicias PKT1 SAPI de CV</p>
+              <div className="flex items-center ">
+                <CustomInput label="No. De días a disfrutar:" defaultValue={formData.days} className="text-center text-small " />
+                <CustomInput label="fecha de inicio:" defaultValue={formData.startDate} className="text-center text-small" />
+                <CustomInput label="fecha de término:" defaultValue={formData.endDate} className="text-center text-small" />
+              </div>
+
+              <CustomInput label="Efectivo a partir de la fecha:" defaultValue={formData.effectiveDate} />
+              <CustomInput label="IMPORTANTE: fecha en la que deberá presentarse:" defaultValue={formData.returnDate} classNames={{ base: 'flex-wrap gap-0' }} />
+              <CustomInput label="OBSERVACIONES Y COMENTARIOS:" defaultValue={formData.comments} classNames={{ base: 'flex-wrap gap-0' }} />
+            </div>
+
+
+            {/* Firmas */}
+            <div className="grid grid-cols-3 gap-4 items-end">
+              <div>
+                <ColaboratorSignature />
+              </div>
+
+              <div className="text-center">
+                <ManagerSignature />
+              </div>
+              <div className="text-center">
+                <Divider className="mb-2 bg-foreground-700" />
+                <p className="text-sm">Firma de Dirección</p>
+              </div>
+            </div>
+
+            {/* Para RRHH */}
+            <div className="mt-8">
+              <h2 className="font-semibold mb-4 italic font-sans">Exclusivo para ser llenado por Recursos Humanos</h2>
+
+              <div className="mb-4 space-y-1">
+                <p>Colaborador: __________________________________</p>
+                <p>Puesto: ________________________________________</p>
+              </div>
+
+
+              <div className="mt-6 space-y-4">
+                <p>Presente:</p>
+                <p className="text-justify indent-14">
+                  A través del presente se le informa que se autoriza el goce de sus vacaciones correspondiente al periodo
+                  _________________ por ____ días, iniciando el _________________ y terminando el _________________,
+                  debiendo presentarse a sus labores el día _________________, quedando pendientes de disfrutar días
+                  correspondientes al periodo en mención, mismos que posteriormente dará aviso mediante el formato
+                  correspondiente.
+                </p>
+                <p className="mt-4">
+                  No habiendo ningún inconveniente de su parte, hago de su conocimiento que el registro y pago del
+                  porcentaje de prima vacacional correspondiente al periodo ________________________ será aplicado en la
+                  nómina que corresponda de acuerdo a su fecha de aniversario cumplido.
+                </p>
+                <p className="text-center ">Atentamente</p>
+
+                <div className="text-center ">
+                  <Divider className="w-96 mx-auto mb-2 mt-10 bg-foreground-700" />
+                  <p className="text-sm">Gerente de Recursos Humanos Integradora de</p>
+                  <p className="text-sm">Franquicias PKT1 SAPI de CV</p>
+                </div>
+              </div>
+            </div>
+
+            <div className={cn("absolute bottom-4 right-10 mt-6 text-right text-sm text-foreground-500 font-sans",)}>
+              <p>www.<span className="text-green-600 text-xl font-semibold">enviospkt1</span>.com</p>
+              <div className="flex flex-col gap-0 leading-5">
+                <p>Ignacio Allende Sur # 14 Col. Centro</p>
+                <p>C.P. 81200, Los Mochis, Sinaloa.</p>
+                <p>Tel. (668) <span className="font-bold">818 3290</span></p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-10 text-sm text-center text-gray-500">
-          <p><strong>www.enviospkt1.com</strong> | Ignacio Allende Sur #14 Col. Centro, C.P. 81200, Los Mochis, Sinaloa.</p>
-          <p>Tel. (668) 818 3290</p>
-        </div>
       </div>
     </div>
-  );
-}
-
-function CustomInput({ defaultValue }: { defaultValue: string }) {
-  return (
-    <input
-      type="text"
-      defaultValue={defaultValue}
-      className="border-none bg-transparent border-b border-transparent focus:border focus:border-blue-500 focus:bg-white focus:outline-none px-1 transition-colors duration-200"
-    />
-  );
+  )
 }
