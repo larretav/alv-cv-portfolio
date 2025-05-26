@@ -57,7 +57,7 @@ export const SignatureUpload = ({ value, onChange, placeholder = 'Arrastra tu fi
     >
       <label className="block cursor-pointer">
         {image
-          ? <Image src={image} alt="Firma" width={50} height={100} className="max-h-12 mx-auto" />
+          ? <Image src={image} alt="Firma" width={100} height={50} className="max-h-12 mx-auto object-contain" />
           : <p className="text-small text-foreground font-sans ">{placeholder}</p>
         }
         <VisuallyHidden>

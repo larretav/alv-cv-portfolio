@@ -1,4 +1,3 @@
-'use client';
 import { getPlaceAndDate } from "./_helpers/dates.helper";
 import { Divider } from "@heroui/divider";
 import { CustomInput } from "./_components/CustomInput";
@@ -7,14 +6,10 @@ import { cn } from "@/utils";
 import Image from "next/image";
 import { ColaboratorSignature } from "./_components/ColaboratorSignature";
 import { ManagerSignature } from "./_components/ManagerSignature";
-import { useRef } from "react";
-import { Button } from "@heroui/button";
-import html2pdf from 'html2pdf.js';
-import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { DownloadButtonPDF } from "./_components/DownloadButtonPDF";
 
 export default function VacationsFormatPage() {
 
-  const pdfRef = useRef(null);
 
   const placeDate = getPlaceAndDate();
 
@@ -35,31 +30,18 @@ export default function VacationsFormatPage() {
     comments: "",
   }
 
-  const downloadPDF = () => {
-    const element = pdfRef.current;
-
-    const opt = {
-      margin: 0,
-      filename: 'solicitud-vacaciones.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 1 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(element).save();
-  };
-
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col print:shadow-none print:p-0 print:max-w-letter print:h-letter">
 
-      <div className="absolute bottom-20 right-8">
-        <Button color="primary" startContent={<ArrowDownTrayIcon className="size-6" />} onPress={downloadPDF}>Descargar</Button>
+      <div className="absolute bottom-20 right-8 print:hidden">
+        <DownloadButtonPDF />
       </div>
 
-      <div ref={pdfRef} className={cn("relative max-w-4xl mx-auto bg-content1 dark:bg-content2 shadow-md py-6 text-xs", fontMerriweather.className)}>
+
+      <div className={cn("relative max-w-letter mx-auto bg-content1 dark:bg-content2 shadow-md py-6 text-xs print:p-0 print:shadow-none", fontMerriweather.className)}>
         {/* Left sidebar with green and blue */}
 
-        <Image src="/assets/pkt1-logo.png" width={160} height={70} alt="logo" className="absolute top-10 right-10" />
+        <Image src="/assets/pkt1-logo.png" width={160} height={70} alt="logo" className="absolute top-10 right-10 " />
 
         {/* Main form content */}
         <div className="flex gap-0 h-full">
@@ -68,7 +50,12 @@ export default function VacationsFormatPage() {
             <div className="h-5/6 bg-blue-900"></div>
           </div>
 
-          <div className="flex flex-col gap-2 p-16 relative">
+          <div className="hidden print:block print-left-bar">
+            <div className="print-green"></div>
+            <div className="print-blue"></div>
+          </div>
+
+          <div className="flex flex-col gap-2 p-16 relative print:p-16">
 
 
             <div className="mb-6">

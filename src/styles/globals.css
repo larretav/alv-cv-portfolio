@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@media print {
+  .print-left-bar {
+    display: block !important;
+    height: 100% !important;
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 3.5rem;
+    z-index: -1;
+  }
+
+  .print-green {
+    height: 16.66%; /* 1/6 */
+    background-color: #22c55e !important; /* Tailwind green-500 */
+  }
+
+  .print-blue {
+    height: 83.33%; /* 5/6 */
+    background-color: #1e3a8a !important; /* Tailwind blue-900 */
+  }
+}
