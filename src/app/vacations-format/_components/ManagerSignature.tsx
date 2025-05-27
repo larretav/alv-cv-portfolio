@@ -24,7 +24,7 @@ export const ManagerSignature = () => {
       <SignatureUpload value={signature} onChange={handleSignatureChange} placeholder="Y la de tu jefe we" />
       <div className="w-full text-center">
         <Divider className="mb-2 bg-foreground-700" />
-        <p className="text-sm">Firma Gerente / Jefe Inmediato</p>
+        <p >Firma Gerente / Jefe Inmediato</p>
       </div>
     </div>
   )

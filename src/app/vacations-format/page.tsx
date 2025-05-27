@@ -57,7 +57,6 @@ export default function VacationsFormatPage() {
 
           <div className="flex flex-col gap-2 p-16 relative print:p-16">
 
-
             <div className="mb-6">
               <h1 className="text-lg font-bold text-center font-sans">SOLICITUD DE VACACIONES</h1>
             </div>
@@ -66,7 +65,6 @@ export default function VacationsFormatPage() {
             <div className="flex flex-col gap-3 ">
 
               <CustomInput label="Lugar y fecha:" defaultValue={formData.location} />
-
               <CustomInput label="Nombre:" defaultValue={formData.name} />
               <CustomInput label="ID del colaborador:" defaultValue={formData.employeeId} />
               <CustomInput label="Puesto Actual:" defaultValue={formData.position} />
@@ -85,7 +83,6 @@ export default function VacationsFormatPage() {
               <CustomInput label="OBSERVACIONES Y COMENTARIOS:" defaultValue={formData.comments} classNames={{ base: 'flex-wrap gap-0' }} />
             </div>
 
-
             {/* Firmas */}
             <div className="grid grid-cols-3 gap-4 items-end">
               <div>
@@ -97,7 +94,7 @@ export default function VacationsFormatPage() {
               </div>
               <div className="text-center">
                 <Divider className="mb-2 bg-foreground-700" />
-                <p className="text-sm">Firma de Dirección</p>
+                <p >Firma de Dirección</p>
               </div>
             </div>
 

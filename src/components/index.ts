@@ -1,6 +1,7 @@
 export * from './EducationItem';
 export * from './ExperienceItem';
 export * from './Navbar';
+export * from './ProjectItem';
 export * from './Rating';
 export * from './ThemeSwitch';
 export * from './icons/EnvelopeOutlinedIcon';

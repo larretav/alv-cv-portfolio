@@ -1,9 +1,9 @@
 import { EnvelopeOutlinedIcon, MapPinOutlinedIcon, PhoneOutlinedIcon } from "@/components/icons";
 import { Avatar } from "@heroui/avatar";
 import { RatingTest } from "./_components/RatingTest";
-import { EducationItem, ExperienceItem, SectionTitle2 } from "@/components";
-import { AcademicCapIcon, BriefcaseIcon } from "@heroicons/react/24/outline";
-import { certifications, workExperience, education } from "@/data";
+import { EducationItem, ExperienceItem, ProjectItem, SectionTitle2 } from "@/components";
+import { AcademicCapIcon, BriefcaseIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import { certifications, workExperience, education, featuredProjects } from "@/data";
 import { Link } from "@heroui/link";
 
 export default function CVPage() {
@@ -48,7 +48,7 @@ export default function CVPage() {
         </section>
 
         <section className="space-y-4">
-          <SectionTitle2 text="Certificaciones" icon={<AcademicCapIcon />} />
+          <SectionTitle2 text="Certificaciones" icon={<CalendarIcon />} />
           <div className="px-4">
             <ul className="space-y-2 list-disc pl-5">
               {certifications.map((cert, index) => (
@@ -62,7 +62,9 @@ export default function CVPage() {
 
         <section className="space-y-4">
           <SectionTitle2 text="Proyectos destacados" />
-          <p>En desarrollo</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {featuredProjects.map(proj => <ProjectItem key={proj.link} {...proj} />)}
+          </div>
         </section>
       </div>
     </div>

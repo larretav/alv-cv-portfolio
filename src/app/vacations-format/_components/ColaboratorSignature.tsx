@@ -6,8 +6,6 @@ import { LocaleStorageKeys } from "@/enum";
 
 export const ColaboratorSignature = () => {
 
-
-
   const [signature, setSignature] = useState<string | null>(null);
 
   const handleSignatureChange = (signature: string | null) => {
@@ -27,7 +25,7 @@ export const ColaboratorSignature = () => {
       <SignatureUpload value={signature} onChange={handleSignatureChange} />
       <div className="w-full text-center">
         <Divider className="mb-2 bg-foreground-700" />
-        <p className="text-sm">Firma del Colaborador</p>
+        <p >Firma del Colaborador</p>
       </div>
     </div>
   )
