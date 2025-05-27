@@ -29,11 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en" >
       <head />
       <body
         className={clsx(
-          "h-dvh min-h-dvh bg-default-50 font-sans antialiased print:bg-white ",
+          "h-dvh min-h-dvh bg-default-50 font-sans antialiased print:bg-white overflow-y-auto",
           fontSans.variable
         )}
       >

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @media print {
   .print-left-bar {
     display: block !important;
