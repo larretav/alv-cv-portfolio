@@ -1,6 +1,7 @@
 import { Badge } from '@heroui/badge';
 import { Card, CardBody } from '@heroui/card';
 import { Chip } from '@heroui/chip';
+import { Image } from '@heroui/image';
 import React from 'react'
 
 type Props = {
@@ -20,7 +21,11 @@ export const ProjectItem = ({ name, description, technologies, image }: Props) =
         </p>
         <div className="flex gap-2 mt-2 flex-wrap">
           {technologies.map((item, idx) => (
-            <Chip key={item + idx} variant="bordered">{item}</Chip>
+            <Chip
+              key={item + idx}
+              startContent={ <Image width={16} height={16} src={`https://cdn.simpleicons.org/${item.replaceAll(' ','').toLowerCase()}/11181c/ecedee`} className="text-red" /> }
+              variant="bordered"
+            >{item}</Chip>
           ))}
         </div>
       </CardBody>
