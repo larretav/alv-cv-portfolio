@@ -46,13 +46,13 @@ export default function VacationsFormatPage() {
         {/* Main form content */}
         <div className="flex gap-0 h-full">
           <div className="w-36 py-8">
-            <div className="h-1/6 bg-green-500"></div>
-            <div className="h-5/6 bg-blue-900"></div>
+            <div className="h-1/6 bg-green-500" />
+            <div className="h-5/6 bg-blue-900" />
           </div>
 
           <div className="hidden print:block print-left-bar">
-            <div className="print-green"></div>
-            <div className="print-blue"></div>
+            <div className="print-green" />
+            <div className="print-blue" />
           </div>
 
           <div className="flex flex-col gap-2 p-16 relative print:p-16">

@@ -7,6 +7,7 @@ export const DownloadButtonPDF = () => {
   const downloadPDF = () => {
     window.print();
   }
+  
   return (
     <Button color="primary" startContent={<ArrowDownTrayIcon className="size-6" />} onPress={downloadPDF}>Descargar</Button>
   )

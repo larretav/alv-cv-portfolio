@@ -18,24 +18,31 @@ export const SignatureUpload = ({ value, onChange, placeholder = 'Arrastra tu fi
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
+
     handleFile(file);
   };
 
   const handleFile = (file: File) => {
     if (file && file.type.startsWith("image/")) {
+
       const reader = new FileReader();
+
       reader.onload = () => {
         const result = reader.result as string;
+
         setImage(result);
         onChange && onChange(result);
       };
+
       reader.readAsDataURL(file);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) handleFile(file);
+    
+    if (file)
+      handleFile(file);
   };
 
   useEffect(() => {

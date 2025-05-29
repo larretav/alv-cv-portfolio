@@ -16,6 +16,7 @@ export const ColaboratorSignature = () => {
 
   useEffect(() => {
     const colaboratorSignature = localStorage.getItem(LocaleStorageKeys.COLABORATOR_SIGNATURE);
+    
     setSignature(colaboratorSignature);
   }, [])
 

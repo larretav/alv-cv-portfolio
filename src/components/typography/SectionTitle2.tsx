@@ -12,7 +12,7 @@ export const SectionTitle2 = ({ text, icon }: Props) => {
         {icon && <span className="text-primary dark:text-foreground/80 size-6">{icon}</span>}
         {text}
       </h2>
-      <div className="ml-4 h-0.5 flex-grow bg-primary/20 dark:bg-foreground/20 rounded-full"></div>
+      <div className="ml-4 h-0.5 flex-grow bg-primary/20 dark:bg-foreground/20 rounded-full" />
     </div>
   );
 }

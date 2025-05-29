@@ -33,3 +33,5 @@ export const CustomInput = forwardRef<HTMLInputElement, Props>(({ label, classNa
 
   );
 });
+
+CustomInput.displayName = "CustomInput";

@@ -1,9 +1,8 @@
-import { EnvelopeOutlinedIcon, MapPinOutlinedIcon, PhoneOutlinedIcon } from "@/components/icons";
-import { Avatar } from "@heroui/avatar";
-import { RatingTest } from "./_components/RatingTest";
-import { EducationItem, ExperienceItem, ProjectItem, SectionTitle2 } from "@/components";
 import { AcademicCapIcon, BriefcaseIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import { Avatar } from "@heroui/avatar";
 import { certifications, workExperience, education, featuredProjects } from "@/data";
+import { EducationItem, ExperienceItem, ProjectItem, SectionTitle2 } from "@/components";
+import { EnvelopeOutlinedIcon, MapPinOutlinedIcon, PhoneOutlinedIcon } from "@/components/icons";
 import { Link } from "@heroui/link";
 
 export default function CVPage() {
