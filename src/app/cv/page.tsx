@@ -17,7 +17,7 @@ export default function CVPage() {
       </div>
 
       {/* Panel derecho */}
-      <div className="col-span-6 flex flex-col gap-8 p-6 lg:p-8 rounded-large bg-slate-100 dark:bg-slate-800 print:p-6">
+      <div className="col-span-6 flex flex-col gap-8 p-6 lg:p-8 rounded-large bg-teal-50 dark:bg-teal-950 print:p-6">
         <section className="space-y-4">
           <SectionTitle2 text="Perfil profesional" />
           <p className="">
