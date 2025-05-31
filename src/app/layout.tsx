@@ -39,7 +39,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <Navbar />
-          <main className="min-h-screen mx-auto max-w-7xl flex justify-center print:p-0 ">
+          <main className="min-h-screen mx-auto max-w-7xl flex justify-center print:p-0">
             {children}
           </main>
         </Providers>
