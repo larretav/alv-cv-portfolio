@@ -4,6 +4,7 @@ import { forwardRef, InputHTMLAttributes } from "react";
 
 type Props = {
   label?: string;
+  onValueChange?: (value: string) => void;
   classNames?: {
     base?: string;
     label?: string;
@@ -12,7 +13,9 @@ type Props = {
 
 
 
-export const CustomInput = forwardRef<HTMLInputElement, Props>(({ label, classNames, ...props }, ref) => {
+export const CustomInput = forwardRef<HTMLInputElement, Props>(({ label, onValueChange, classNames, ...props }, ref) => {
+
+
   return (
     <>
       <div className={cn("flex items-center gap-2", classNames?.base)}>
@@ -20,6 +23,7 @@ export const CustomInput = forwardRef<HTMLInputElement, Props>(({ label, classNa
         <input
           ref={ref}
           {...props}
+          onChange={(e) => onValueChange && onValueChange(e.target.value)}
           type="text"
           className={cn(
             "w-full bg-transparent transition-all duration-200 outline-none ",

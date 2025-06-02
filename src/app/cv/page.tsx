@@ -7,7 +7,7 @@ import { Link } from "@heroui/link";
 
 export default function CVPage() {
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-8 gap-4 pb-10  ">
+    <div className="w-full h-fit grid grid-cols-1 md:grid-cols-8 gap-4 pb-10  ">
       {/* Panel izquierdo */}
       <div className="col-span-2 p-4 rounded-large bg-teal-600/10 dark:bg-teal-900/20 ">
         <Avatar src="https://avatar.iran.liara.run/public/boy" alt="avatar" />

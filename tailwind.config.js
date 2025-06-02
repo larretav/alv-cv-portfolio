@@ -10,10 +10,10 @@ const config = {
   theme: {
     extend: {
       maxWidth: {
-        'letter': '216mm',
+        'letter': '215mm',
       },
       height: {
-        'letter': '280mm'
+        'letter': '279mm'
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
