@@ -44,7 +44,7 @@ export const workExperience = [
       "Colaboración en proyectos de desarrollo",
       "Participación en reuniones de equipo",
       "Participación en mejora de procesos y sistemas",
-      "Diseño de UX/UI",
+      "Diseño de UX/UI (con Figma)",
     ]
   },
 ].reverse();
