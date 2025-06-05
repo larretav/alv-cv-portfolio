@@ -1,4 +1,7 @@
+export * from './EducationItem';
+export * from './ExperienceItem';
 export * from './Navbar';
+export * from './ProjectItem';
 export * from './Rating';
 export * from './ThemeSwitch';
 export * from './icons/EnvelopeOutlinedIcon';
@@ -7,3 +10,4 @@ export * from './icons/MoonSolidIcon';
 export * from './icons/PhoneOutlinedIcon';
 export * from './icons/SunSolidIcon';
 export * from './icons/SvgIcon';
+export * from './typography/SectionTitle2';

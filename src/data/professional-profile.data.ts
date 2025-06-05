@@ -1,0 +1,2 @@
+
+export const professionalProfile = "Desarrollador web con más de 2 años de experiencia en diseño y desarrollo de aplicaciones web modernas y escalables. Especializado en Front-End con ReactJS/NextJS, en menor medida Back-End con NestJS y base de datos con MySQL y Prisma. Apasionado en crear aplicaciones con buena estructura, buenas practicas siguiendo los principios SOLID y manteniendo muy presente la experiencia de usuario e interfaz de usuario. Enfocado en el aprendizaje continuo y la mejora de habilidades.";

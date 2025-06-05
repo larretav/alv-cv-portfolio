@@ -29,21 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en"  >
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-default-50 font-sans antialiased",
-          fontSans.variable,
+          "bg-default-50 font-sans antialiased print:bg-white",
+          fontSans.className
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-5 px-6 flex-grow">
-              {children}
-            </main>
-          </div>
+          <Navbar />
+          <main className="min-h-screen mx-auto max-w-7xl flex justify-center print:p-0">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
