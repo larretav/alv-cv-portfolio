@@ -37,6 +37,7 @@ export const Rating = ({
 
   const roundValueToPrecision = (val: number) => {
     const nearest = Math.round(val / precision) * precision;
+    
     return Number(nearest.toFixed(2));
   };
 
@@ -44,12 +45,15 @@ export const Rating = ({
     const { left, width } = rootRef.current?.getBoundingClientRect() || { left: 0, width: 1 };
     const percent = (e.clientX - left) / width;
     const rawValue = percent * max;
+    
     return roundValueToPrecision(rawValue);
   };
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (readOnly) return;
+    
     const newHover = getValueFromPosition(e);
+
     setHoverValue(newHover);
   };
 
@@ -59,8 +63,11 @@ export const Rating = ({
   };
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    
     if (readOnly || !onChange) return;
+    
     const clickedValue = getValueFromPosition(e);
+    
     onChange(clickedValue);
   };
 

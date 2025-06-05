@@ -5,7 +5,8 @@ import clsx from "clsx";
 
 import { Providers } from "./providers";
 import { fontSans } from "../config/fonts";
-import { Navbar } from "@/components";
+import { Navbar } from "@/components/Navbar";
+import { cn } from "@/utils";
 
 
 export const metadata: Metadata = {
@@ -29,21 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en"  >
       <head />
-      <body
-        className={clsx(
-          "min-h-screen bg-default-50 font-sans antialiased",
-          fontSans.variable,
-        )}
-      >
+      <body className={cn("bg-default-50 font-sans antialiased print:bg-white", fontSans.variable)}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-5 px-6 flex-grow">
-              {children}
-            </main>
-          </div>
+          <Navbar />
+          <main className="min-h-screen mx-auto max-w-7xl flex justify-center print:p-0">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

@@ -9,6 +9,12 @@ const config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        'letter': '215mm',
+      },
+      height: {
+        'letter': '279mm'
+      },
       fontFamily: {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
